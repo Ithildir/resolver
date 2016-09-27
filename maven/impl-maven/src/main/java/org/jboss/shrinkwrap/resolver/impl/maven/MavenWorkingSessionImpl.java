@@ -40,6 +40,7 @@ import org.apache.maven.model.building.ModelProblem;
 import org.apache.maven.model.profile.ProfileActivationContext;
 import org.apache.maven.model.profile.ProfileSelector;
 import org.apache.maven.settings.Mirror;
+import org.apache.maven.settings.Proxy;
 import org.apache.maven.settings.Server;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.collection.CollectRequest;
@@ -442,6 +443,12 @@ public class MavenWorkingSessionImpl extends ConfigurableMavenWorkingSessionImpl
                         .addPassword(server.getPassword())
                         .addPrivateKey(server.getPrivateKey(), server.getPassphrase());
                 builder.setAuthentication(authenticationBuilder.build());
+            }
+
+            // add proxy
+            Proxy proxy = getSettings().getActiveProxy();
+            if (proxy != null) {
+                builder.setProxy(MavenConverter.asProxy(proxy));
             }
 
             authorizedRepos.add(builder.build());
