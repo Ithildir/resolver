@@ -68,7 +68,7 @@ public class DefaultSettingsXmlLocationTestCase {
         Assert.assertThat(request.getGlobalSettingsFile(), is(not(nullValue())));
 
         Assert.assertThat(removeDoubledSeparator(request.getGlobalSettingsFile().getPath()),
-                is(removeDoubledSeparator(System.getenv("M2_HOME") + "/conf/settings.xml".replaceAll("//", "/").replace('/', File.separatorChar))));
+                is(removeDoubledSeparator(System.getenv("M2_HOME") + "/conf/settings.xml".replace("//", "/").replace('/', File.separatorChar))));
     }
 
     private String removeDoubledSeparator(String path){
